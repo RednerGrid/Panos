@@ -37,3 +37,13 @@ body{
 .nav-btn.right {
   right: 24px;
 }
+
+html,
+body {
+  overscroll-behavior: none;
+}
+
+#viewer {
+  touch-action: none;
+  user-select: none;
+}
