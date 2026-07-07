@@ -76,29 +76,42 @@ document.getElementById("nextPano").addEventListener("click", () => {
 });
 
 container.addEventListener("pointerdown", (e) => {
+  e.preventDefault();
+
   isDown = true;
   startX = e.clientX;
   startY = e.clientY;
+
   container.setPointerCapture(e.pointerId);
 });
 
+container.addEventListener("pointermove", (e) => {
+  e.preventDefault();
+
+  if (!isDown) return;
+
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
+
+  lon -= dx * 0.18;
+  lat += dy * 0.18;
+
+  startX = e.clientX;
+  startY = e.clientY;
+});
+
 container.addEventListener("pointerup", (e) => {
+  e.preventDefault();
+
   isDown = false;
-  container.releasePointerCapture(e.pointerId);
+
+  if (container.hasPointerCapture(e.pointerId)) {
+    container.releasePointerCapture(e.pointerId);
+  }
 });
 
 container.addEventListener("pointercancel", () => {
   isDown = false;
-});
-
-container.addEventListener("pointermove", (e) => {
-  if (!isDown) return;
-
-  lon += (startX - e.clientX) * 0.1;
-  lat += (e.clientY - startY) * 0.1;
-
-  startX = e.clientX;
-  startY = e.clientY;
 });
 
 window.addEventListener("wheel", (e) => {
