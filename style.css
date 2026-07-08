@@ -58,3 +58,20 @@ body {
   touch-action: none;
   user-select: none;
 }
+
+.fullscreen-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+}

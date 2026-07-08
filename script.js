@@ -181,3 +181,25 @@ window.addEventListener("resize", () => {
 });
 
 init();
+
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+fullscreenBtn.addEventListener("click", async () => {
+  const target = document.documentElement;
+
+  if (!document.fullscreenElement) {
+    await target.requestFullscreen();
+    fullscreenBtn.textContent = "×";
+  } else {
+    await document.exitFullscreen();
+    fullscreenBtn.textContent = "⛶";
+  }
+});
+
+document.addEventListener("fullscreenchange", () => {
+  fullscreenBtn.textContent = document.fullscreenElement ? "×" : "⛶";
+
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
